@@ -1,0 +1,19 @@
+{
+  "name": "jccc_web210_demo",
+  "version": "1.0.0",
+  "description": "This is a sample of the JCCC WEB-210 Capstone Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoelJB/JCCC_WEB210_Demo.git"
+  },
+  "author": "Noel J. Bergman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoelJB/JCCC_WEB210_Demo/issues"
+  },
+  "homepage": "https://github.com/NoelJB/JCCC_WEB210_Demo#readme"
+}
