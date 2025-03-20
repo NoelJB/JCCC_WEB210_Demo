@@ -1,0 +1,36 @@
+Book/Media Store
+
+CDs
+Books
+Albums
+DVD
+
+Artists
+Authors
+Titles
+Prices
+
+Frontend WebApp
+
+Must Have:
+Working UI (HTML, CSS, JS)
+Working Backend (Nodejs, Express)
+CRUD
+  Must be able to add new items
+  Must be able to search the catalog
+  Must be able to view item details
+  Must be able to add edit items
+  Must be able to delete items
+
+Nice to haves:
+Responsive
+Database storage
+
+Minimum Viable Product
+  Welcome Page
+  CD Landing Page
+  Add CD
+  Search CDs
+  View CD details
+  Edit CD
+  Delete CD
