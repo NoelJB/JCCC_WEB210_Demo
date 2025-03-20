@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/NoelJB/JCCC_WEB210_Demo/issues"
   },
-  "homepage": "https://github.com/NoelJB/JCCC_WEB210_Demo#readme"
+  "homepage": "https://github.com/NoelJB/JCCC_WEB210_Demo#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
