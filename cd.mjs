@@ -2,7 +2,6 @@
 This is a simple CD class in ES6 sytax.
 */
 
-import ESSerializer from "esserializer";
 
 class CD {
     constructor(id, title, artist, tracks, price) {
@@ -69,9 +68,3 @@ const cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
 console.log(`cd is an instance of CD: ${cd instanceof CD}`)
 const cd_str = JSON.stringify(cd)
 console.log(cd_str)
-
-const cd_str2 = ESSerializer.serialize(cd)
-console.log(cd_str2)
-const cd3 = ESSerializer.deserialize(cd_str2, CD);
-console.log(`cd3 is an instance of CD: ${cd3 instanceof CD}`)
-
