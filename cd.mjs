@@ -68,3 +68,4 @@ const cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
 console.log(`cd is an instance of CD: ${cd instanceof CD}`)
 const cd_str = JSON.stringify(cd)
 console.log(cd_str)
+console.log(JSON.parse(cd_str))
