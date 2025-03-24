@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NoelJB/JCCC_WEB210_Demo#readme",
   "dependencies": {
+    "esserializer": "^1.3.11",
     "express": "^4.21.2"
   }
 }
