@@ -28,7 +28,7 @@ export class CD {
     }
 
     set id(id) {
-        this._id = id;
+        this._id = parseInt(id);
     }
 
     get title() {
@@ -36,6 +36,7 @@ export class CD {
     }
 
     set title(title) {
+        if (!(typeof title == "string" || title instanceof String)) throw new Error(`Title (${title}) must be a string`)
         this._title = title;
     }
 
@@ -52,6 +53,8 @@ export class CD {
     }
 
     set tracks(tracks) {
+        tracks = parseInt(tracks)
+        if (tracks < 1) throw new Error(`Tracks (${tracks}) must be a postive number`)
         this._tracks = tracks;
     }
 
@@ -60,7 +63,9 @@ export class CD {
     }
 
     set price(price) {
-        this._price = price;
+        const newPrice = parseFloat(price)
+        if (isNaN(newPrice) || newPrice < 0) throw new Error (`Price (${price}) must be a postive number`)
+        this._price = parseFloat(newPrice);
     }
 }
 
