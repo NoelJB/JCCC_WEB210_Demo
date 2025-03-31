@@ -1,4 +1,16 @@
-Book/Media Store
+Welcome Page + supporting page(s)
+
+GET /collection     -- get all items as summary
+POST /connection    -- add new item
+GET /collection/:id -- get details for one item
+PUT /collection/:id -- update details for one item
+DELETE /collection/:id -- delete one item
+
+MVP -- Minimial Viable Product
+
+------------------------------
+
+Example, using a Book/Media Store
 
 CDs
 Books
