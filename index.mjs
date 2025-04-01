@@ -13,13 +13,19 @@ const cd_str = JSON.stringify(cd)
 console.log(cd_str)
 console.log(JSON.parse(cd_str))
 
+// Database?  We don't need no database!
+const cds = new Array()
+cds[cd.id] = cd
+
 var nextID = cd.id
 
 app.post('/cds', (req, res) => {
     // Logic to create a new item and get its ID (e.g., from a database)
     const data = req.body;
-    console.log(`Received ${data}`)
+    console.log(`Received ${JSON.stringify(data)}`)
     const newCD = new CD(++nextID, data.title, data.artist, data.tracks, data.price)
+
+    cds[newCD.id] = newCD
 
     // Construct the URL for the new item
     const newItemUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}/${newCD.id}`;
@@ -29,9 +35,34 @@ app.post('/cds', (req, res) => {
     console.log(`Created ${newItemUrl}`)
 });
 
+app.put('/cds/:cd_id', (req, res) => {
+    const id = req.params['cd_id']
+    console.log(`Request to update CD #${id}`)
+    if (cds[id]) { 
+        const data = req.body;
+        cds[id] = new CD(id, data.title, data.artist, data.tracks, data.price)
+        res.status(204).send()
+    }
+    else res.status(404).send()
+})
+
+app.delete('/cds/:cd_id', (req, res) => {
+    const id = req.params['cd_id']
+    console.log(`Request to delete CD #${id}`)
+    if (cds[id]) cds.splice(id, 1);
+    res.status(204).send()
+})
+
 app.get('/cds/:cd_id', (req, res) => {
-    console.log("Got a CD request")
-    res.json(cd)
+    const id = req.params['cd_id']
+    console.log(`Request for CD #${id}`)
+    if (cds[id]) res.json(cds[id])
+    else res.status(404).send()
+})
+
+app.get('/cds', (req, res) => {
+    console.log("Got a CDs request")
+    res.json(cds.filter(e => e))
 })
 
 app.get('/', (req, res) => {
