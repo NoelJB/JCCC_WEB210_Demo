@@ -26,6 +26,11 @@ export class CD {
         }
     }
 
+    // Custom deserializer - works with JSON.parse()
+    static fromJSON(obj) {
+        return new CD(obj.id, obj.title, obj.artist, obj.tracks, obj.price)
+    }
+
     get id() {
         return this.#id;
     }
