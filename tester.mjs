@@ -57,5 +57,5 @@ let id = await createCD(cd)
 cd.id = id
 cd.title = cd.title.replace("revised", "redux")
 
-updateCD(cd)
-deleteCD(cd)
+await updateCD(cd)
+await deleteCD(cd)
