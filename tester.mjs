@@ -2,7 +2,7 @@
 
 async function getCD(id)
 {
-    const res = await fetch("http://localhost:3000/cds/1")
+    const res = await fetch(`http://localhost:3000/cds/${id}")
     const cd = await res.json()
     console.log(cd)
     return cd
