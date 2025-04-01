@@ -7,17 +7,10 @@ const port = 3000;
 const app = express();
 app.use(express.json());
 
-const cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
-console.log(`cd is an instance of CD: ${cd instanceof CD}`)
-const cd_str = JSON.stringify(cd)
-console.log(cd_str)
-console.log(JSON.parse(cd_str))
-
 // Database?  We don't need no database!
 const cds = new Array()
-cds[cd.id] = cd
 
-var nextID = cd.id
+var nextID = 0
 
 app.post('/cds', (req, res) => {
     // Logic to create a new item and get its ID (e.g., from a database)
