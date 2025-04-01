@@ -4,6 +4,9 @@ This is a simple CD class in ES6 sytax.
 
 
 export class CD {
+    // private fields, using #-prefix
+    #id; #title; #artist; #tracks; #price;
+
     constructor(id, title, artist, tracks, price) {
         this.id = id;
         this.title = title;
@@ -12,7 +15,7 @@ export class CD {
         this.price = price;
     }
 
-    // Custom serializer, since we don't want the _names in the JSON.
+    // Custom serializer, since JSON.stringify otherwise ignores private fields.
     toJSON() {
         return {
             id: this.id,
@@ -24,48 +27,48 @@ export class CD {
     }
 
     get id() {
-        return this._id;
+        return this.#id;
     }
 
     set id(id) {
-        this._id = parseInt(id);
+        this.#id = parseInt(id);
     }
 
     get title() {
-        return this._title;
+        return this.#title;
     }
 
     set title(title) {
         if (!(typeof title == "string" || title instanceof String)) throw new Error(`Title (${title}) must be a string`)
-        this._title = title;
+        this.#title = title;
     }
 
     get artist() {
-        return this._artist;
+        return this.#artist;
     }
 
     set artist(artist) {
-        this._artist = artist;
+        this.#artist = artist;
     }
 
     get tracks() {
-        return this._tracks;
+        return this.#tracks;
     }
 
     set tracks(tracks) {
         tracks = parseInt(tracks)
         if (tracks < 1) throw new Error(`Tracks (${tracks}) must be a postive number`)
-        this._tracks = tracks;
+        this.#tracks = tracks;
     }
 
     get price() {
-        return this._price;
+        return this.#price;
     }
 
     set price(price) {
         const newPrice = parseFloat(price)
         if (isNaN(newPrice) || newPrice < 0) throw new Error (`Price (${price}) must be a postive number`)
-        this._price = parseFloat(newPrice);
+        this.#price = parseFloat(newPrice);
     }
 }
 
