@@ -1,61 +1,58 @@
 "use strict";
 
 import express from "express";
+
+import { CDServiceInMemory as CDService } from "./cd-service.mjs";
 import { CD } from "./cd.mjs";
+
 
 const port = 3000;
 const app = express();
 app.use(express.json());
 
-// Database?  We don't need no database!
-const cds = new Array()
+const cdRepository = new CDService()
 
-var nextID = 0
-
-app.post('/cds', (req, res) => {
+app.post('/cds', async (req, res) => {
     // Logic to create a new item and get its ID (e.g., from a database)
-    const data = req.body;
-    console.log(`Received ${JSON.stringify(data)}`)
-    const newCD = new CD(++nextID, data.title, data.artist, data.tracks, data.price)
-
-    cds[newCD.id] = newCD
+    const cd = req.body;
+    const id = await cdRepository.create(cd)
 
     // Construct the URL for the new item
-    const newItemUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}/${newCD.id}`;
+    const newItemUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}/${id}`;
 
     // Set the Location header and send the 201 status code
     res.location(newItemUrl).status(201).send();
     console.log(`Created ${newItemUrl}`)
 });
 
-app.put('/cds/:cd_id', (req, res) => {
+app.put('/cds/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
     console.log(`Request to update CD #${id}`)
-    if (cds[id]) { 
-        const data = req.body;
-        cds[id] = new CD(id, data.title, data.artist, data.tracks, data.price)
+    const result = await cdRepository.update(req.body)
+    if (result) {
         res.status(204).send()
     }
     else res.status(404).send()
 })
 
-app.delete('/cds/:cd_id', (req, res) => {
+app.delete('/cds/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
     console.log(`Request to delete CD #${id}`)
-    if (cds[id]) cds.splice(id, 1);
+    cdRepository.delete(id)
     res.status(204).send()
 })
 
-app.get('/cds/:cd_id', (req, res) => {
+app.get('/cds/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
-    console.log(`Request for CD #${id}`)
-    if (cds[id]) res.json(cds[id])
+    // console.log(`Request for CD #${id}`)
+    const cd = await cdRepository.getByID(id)
+    if (cd) res.json(cd)
     else res.status(404).send()
 })
 
-app.get('/cds', (req, res) => {
-    console.log("Got a CDs request")
-    res.json(cds.filter(e => e))
+app.get('/cds', async (req, res) => {
+    // console.log(await cdRepository.getAll())
+    res.json(await cdRepository.getAll())
 })
 
 app.get('/', (req, res) => {

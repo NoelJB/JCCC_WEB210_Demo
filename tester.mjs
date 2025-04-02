@@ -6,40 +6,29 @@ import { CD } from "./cd.mjs"
 const cdService = new CDService()
 
 const cds = await cdService.getAll()
-let id = 0;
-if (cds) {
+if (cds.length !== 0) {
     console.log("Found CDs:")
     for (let cd of cds) {
-        id = Math.max(id, cd.id)
-        console.log(`${cd.id}: ${JSON.stringify(cd)}`)
+        console.log(JSON.stringify(cd))
     }
 }
 
-let cd = new CD(id + 1, "Blockbuster Hits", "Red Box", 12, 19.99);
-console.log(`cd is an instance of CD: ${cd instanceof CD}`)
+let cd = new CD(undefined, "Blockbuster Hits", "Red Box", 12, 19.99);
+const id = await cdService.create(cd)
+cd = await cdService.getByID(id)
+console.log(`Fetched newly created CD #${id}: ${JSON.stringify(cd)}`)
 
-id = await cdService.create(cd)
-
-cd = await cdService.getByID(1)
-
-console.log(`Fetch CD #1: ${JSON.stringify(cd)}`)
-
-cd.title = cd.title + " - revised"
 cd.id = undefined
+cd.title = cd.title + " - revised"
 
 console.log(`Creating a new cd: ${JSON.stringify(cd)}`)
+cd.id = await cdService.create(cd)
 
-id = await cdService.create(cd)
-
-cd.id = id
 cd.title = cd.title.replace("revised", "redux")
-
 console.log(`Updating CD #${cd.id}: ${JSON.stringify(cd)}`)
-
 await cdService.update(cd)
 
-cd = await cdService.getByID(id)
-
+cd = await cdService.getByID(cd.id)
 console.log(`Fetched to verify CD #${cd.id}: ${JSON.stringify(cd)}`)
 
 await cdService.delete(cd)

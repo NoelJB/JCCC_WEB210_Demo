@@ -1,12 +1,13 @@
 import * as dotenv from "dotenv"
 dotenv.config()
 const CD_PROXY_DEBUG = process.env.CD_PROXY_DEBUG != "false"
+const CD_IN_MEMORY_DEBUG = process.env.CD_IN_MEMORY_DEBUG != "false"
 
 
 import { CD } from "./cd.mjs"
 
 
-class CDServiceAbstract{
+class CDServiceAbstract {
     constructor() {
         if (new.target == CDServiceAbstract) {
             throw new Error("Cannot Instantiate CDServiceAbstract")
@@ -47,15 +48,13 @@ export class CDServiceProxy extends CDServiceAbstract {
     async getAll() {
         const res = await fetch(this.#uri)
         const cds = (await res.json()).map(cd => CD.fromJSON(cd))
-        if (CD_PROXY_DEBUG) console.log(cd)
+        if (CD_PROXY_DEBUG) console.log(cds)
         return cds
     }
 
     async getByID(id) {
         const res = await fetch(`${this.#uri}/${id}`)
-        if (CD_PROXY_DEBUG) console.log(res)
         const cd = (res.status == 200) ? CD.fromJSON(await res.json()) : undefined;
-        if (CD_PROXY_DEBUG) console.log(cd)
         return cd
     }
 
@@ -99,7 +98,39 @@ export class CDServiceProxy extends CDServiceAbstract {
 
 
 export class CDServiceInMemory extends CDServiceAbstract {
+    #cds; #nextID;
+
     constructor() {
         super()
+        // Database?  We don't need no database!
+        this.#cds = new Array()
+        this.#nextID = 1;
+    }
+
+    async getAll() {
+        return this.#cds.filter(e => e)
+    }
+
+    async getByID(id) {
+        return this.#cds[id]
+    }
+
+    async create(cd) {
+        cd.id = this.#nextID++
+        if (CD_IN_MEMORY_DEBUG) console.log(`Creating ${JSON.stringify(cd)} (${cd instanceof CD})`)
+        this.#cds[cd.id] = CD.fromJSON(cd)
+        if (CD_IN_MEMORY_DEBUG) console.log(`Created ${JSON.stringify(this.#cds[cd.id])} (${this.#cds[cd.id] instanceof CD})`)
+        return cd.id
+    }
+
+    async update(cd) {
+        if (this.#cds[cd.id]) {
+            this.#cds[cd.id] = CD.fromJSON(cd)
+        }
+        return this.#cds[cd.id]
+    }
+
+    async delete(id) { // expects an ID, not a CD
+        if (this.#cds[id]) this.#cds.splice(id, 1);
     }
 }
