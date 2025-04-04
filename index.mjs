@@ -59,6 +59,20 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })
+
+// A shutdown hook.  Please note that process.exit causes any "exit" hooks to run.
+const shutdown = () => {
+    console.info('Shutdown signal received.');
+    console.log('Closing http server.');
+    server.close(() => {
+        console.log('Express HTTP server closed.');
+        process.exit(0);
+    });
+}
+
+// Register our shutdown hook for SIGTERM and SIGINT
+process.on('SIGTERM', shutdown)
+process.on("SIGINT", shutdown)
