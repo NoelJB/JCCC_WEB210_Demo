@@ -105,11 +105,13 @@ export class CDServiceInMemory extends CDServiceAbstract {
     constructor() {
         super()
 
+        console.log("Starting")
         // Database?  We don't need no database!
         // if we have a persistent store, load it now.
         if (existsSync(CD_IN_MEMORY_FILE)) {
+            console.log("Found")
             this.#cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.fromJSON(cd));
-            this.#nextID = this.#cds.length
+            this.#nextID = Math.max(...(this.#cds.map(cd => cd.id))) + 1
             if (CD_IN_MEMORY_DEBUG) console.log(`Loaded ${this.#cds.length} CDs.  Next id is ${this.#nextID}.`)
         } else {
             this.#cds = new Array()
