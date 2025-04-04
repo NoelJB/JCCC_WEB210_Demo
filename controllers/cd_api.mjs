@@ -2,17 +2,14 @@
 
 import express from "express";
 
-import { CDServiceInMemory as CDService } from "./cd-service.mjs";
-import { CD } from "./cd.mjs";
+import { CDServiceInMemory as CDService } from "../models/cd-service.mjs";
+import { CD } from "../models/cd.mjs";
 
-
-const port = 3000;
-const app = express();
-app.use(express.json());
+export const router = express.Router();
 
 const cdRepository = new CDService()
 
-app.post('/cds', async (req, res) => {
+router.post('/', async (req, res) => {
     // Logic to create a new item and get its ID (e.g., from a database)
     const cd = req.body;
     const id = await cdRepository.create(cd)
@@ -25,7 +22,7 @@ app.post('/cds', async (req, res) => {
     console.log(`Created ${newItemUrl}`)
 });
 
-app.put('/cds/:cd_id', async (req, res) => {
+router.put('/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
     console.log(`Request to update CD #${id}`)
     const result = await cdRepository.update(req.body)
@@ -35,14 +32,14 @@ app.put('/cds/:cd_id', async (req, res) => {
     else res.status(404).send()
 })
 
-app.delete('/cds/:cd_id', async (req, res) => {
+router.delete('/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
     console.log(`Request to delete CD #${id}`)
     cdRepository.delete(id)
     res.status(204).send()
 })
 
-app.get('/cds/:cd_id', async (req, res) => {
+router.get('/:cd_id', async (req, res) => {
     const id = req.params['cd_id']
     // console.log(`Request for CD #${id}`)
     const cd = await cdRepository.getByID(id)
@@ -50,29 +47,7 @@ app.get('/cds/:cd_id', async (req, res) => {
     else res.status(404).send()
 })
 
-app.get('/cds', async (req, res) => {
+router.get('/', async (req, res) => {
     // console.log(await cdRepository.getAll())
     res.json(await cdRepository.getAll())
 })
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
-const server = app.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
-})
-
-// A shutdown hook.  Please note that process.exit causes any "exit" hooks to run.
-const shutdown = () => {
-    console.info('Shutdown signal received.');
-    console.log('Closing http server.');
-    server.close(() => {
-        console.log('Express HTTP server closed.');
-        process.exit(0);
-    });
-}
-
-// Register our shutdown hook for SIGTERM and SIGINT
-process.on('SIGTERM', shutdown)
-process.on("SIGINT", shutdown)

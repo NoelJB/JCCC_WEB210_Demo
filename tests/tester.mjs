@@ -1,7 +1,7 @@
 "use strict";
 
-import { CDServiceProxy as CDService } from "./cd-service.mjs";
-import { CD } from "./cd.mjs"
+import { CDServiceProxy as CDService } from "../models/cd-service.mjs";
+import { CD } from "../models/cd.mjs"
 
 const cdService = new CDService()
 
