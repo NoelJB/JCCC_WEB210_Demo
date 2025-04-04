@@ -2,7 +2,9 @@ import * as dotenv from "dotenv"
 dotenv.config()
 const CD_PROXY_DEBUG = process.env.CD_PROXY_DEBUG != "false"
 const CD_IN_MEMORY_DEBUG = process.env.CD_IN_MEMORY_DEBUG != "false"
+const CD_IN_MEMORY_FILE = process.env.CD_IN_MEMORY_FILE || "cd_repository.json"
 
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
 
 import { CD } from "./cd.mjs"
 
@@ -102,9 +104,25 @@ export class CDServiceInMemory extends CDServiceAbstract {
 
     constructor() {
         super()
+
         // Database?  We don't need no database!
-        this.#cds = new Array()
-        this.#nextID = 1;
+        // if we have a persistent store, load it now.
+        if (existsSync(CD_IN_MEMORY_FILE)) {
+            this.#cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.fromJSON(cd));
+            this.#nextID = this.#cds.length
+            if (CD_IN_MEMORY_DEBUG) console.log(`Loaded ${this.#cds.length} CDs.  Next id is ${this.#nextID}.`)
+        } else {
+            this.#cds = new Array()
+            this.#nextID = 0;
+        }
+
+        // register a shutdown hook to run on process exit so that we can persist.  Write
+        // the file on shutdown.  if we wanted to switch to async I/O, we'd have to use
+        // beforeExit, not exit.
+        process.on('exit', () => {
+            if (CD_IN_MEMORY_DEBUG) console.info('Process exit received. Persisting CD repository.');
+            writeFileSync(CD_IN_MEMORY_FILE, JSON.stringify(this.#cds), "utf8")
+        });
     }
 
     async getAll() {
