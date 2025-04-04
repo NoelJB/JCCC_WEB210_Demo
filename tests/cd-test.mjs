@@ -1,4 +1,4 @@
-import { CD } from "./cd.mjs"
+import { CD } from "../models/cd.mjs"
 
 let cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
 console.log(`cd is an instance of CD: ${cd instanceof CD}`)
