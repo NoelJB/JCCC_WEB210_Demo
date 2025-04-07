@@ -1,11 +1,15 @@
 import express from "express";
 import path from "path";
+import layouts from "express-ejs-layouts"
 
-import  { router as cd_routes } from "./controllers/cd_api.mjs"
+import { router as cd_routes } from "./controllers/cd_api.mjs"
 
 const app = express();
 const port = 3000;
 const __dirname = import.meta.dirname;
+
+app.set("view engine", "ejs")
+app.use(layouts)
 
 app.use(express.json());
 
@@ -15,6 +19,9 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 const router = express.Router()
 
 router.use("/cds", cd_routes)
+router.get("/", (req, res) => {
+  res.render("index")
+})
 
 app.use("/", router)
 
@@ -31,9 +38,15 @@ const shutdown = () => {
   console.info('Shutdown signal received.');
   console.log('Closing http server.');
   server.close(() => {
-      console.log('Express HTTP server closed.');
-      process.exit(0);
+    console.log('Express HTTP server closed.');
+    process.exit(0);
   });
+
+  // Close any lingering (KEEP-ALIVE?) connections after the timeout
+  setTimeout(() => {
+    console.log('Forcefully closing connections...');
+    server.closeAllConnections();
+  }, 5000); // Timeout after 5 seconds
 }
 
 // Register our shutdown hook for SIGTERM and SIGINT
