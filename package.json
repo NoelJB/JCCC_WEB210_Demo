@@ -18,6 +18,11 @@
   "homepage": "https://github.com/NoelJB/JCCC_WEB210_Demo#readme",
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1"
+  },
+  "devDependencies": {
+    "why-is-node-running": "^3.2.2"
   }
 }
