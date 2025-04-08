@@ -1,0 +1,28 @@
+# {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    #logo {
+        float: left;
+        margin-bottom: 2em;
+    }
+
+    h1{
+        text-align: center;
+        font-size: 300%;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 200%;
+        font-style: italic;
+    }
+
+    nav {
+        clear: left;
+    }
+}
+}
