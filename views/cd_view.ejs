@@ -1,0 +1,23 @@
+<script type="module">
+    import { CDServiceProxy } from "/public/js/cd_proxy.mjs"
+    console.log("imported successful")
+    const cdService = new CDServiceProxy("<%= base_uri %>")
+    const cds = cdService.getAll()
+    console.log(cds)
+</script>
+
+
+<secton id="cd-list">
+<H1>Available CDs</H1>
+<table>
+    <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+</secton>
