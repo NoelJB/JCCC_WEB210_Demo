@@ -3,6 +3,7 @@ dotenv.config()
 const CD_PROXY_DEBUG = process.env.CD_PROXY_DEBUG != "false"
 const CD_IN_MEMORY_DEBUG = process.env.CD_IN_MEMORY_DEBUG != "false"
 const CD_IN_MEMORY_FILE = process.env.CD_IN_MEMORY_FILE || "cd_repository.json"
+const CD_BASE_URI = process.env.CD_BASE_URI || "http://localhost:3000/api/cds"
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
 
@@ -44,7 +45,7 @@ export class CDServiceProxy extends CDServiceAbstract {
 
     constructor(uri) {
         super()
-        this.#uri = uri || process.env.CD_BASE_URI
+        this.#uri = uri || CD_BASE_URI
     }
 
     async getAll() {
