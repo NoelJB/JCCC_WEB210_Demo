@@ -26,9 +26,9 @@ export class CD {
         }
     }
 
-    // Custom deserializer - works with JSON.parse()
-    static fromJSON(obj) {
-        return new CD(obj.id, obj.title, obj.artist, obj.tracks, obj.price)
+    // Attach the object to our class definition.
+    static attachType(obj) {
+        return Object.setPrototypeOf(obj, CD.prototype)
     }
 
     get id() {

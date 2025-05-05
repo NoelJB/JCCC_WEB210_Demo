@@ -49,14 +49,14 @@ export class CDServiceProxy extends CDServiceAbstract {
 
     async getAll() {
         const res = await fetch(this.#uri)
-        const cds = (await res.json()).map(cd => CD.fromJSON(cd))
+        const cds = (await res.json()).map(cd => CD.attachType(cd))
         if (CD_PROXY_DEBUG) console.log(cds)
         return cds
     }
 
     async getByID(id) {
         const res = await fetch(`${this.#uri}/${id}`)
-        const cd = (res.status == 200) ? CD.fromJSON(await res.json()) : undefined;
+        const cd = (res.status == 200) ? CD.attachType(await res.json()) : undefined;
         return cd
     }
 
@@ -108,7 +108,7 @@ export class CDServiceInMemory extends CDServiceAbstract {
         // Database?  We don't need no database!
         // if we have a persistent store, load it now.
         if (existsSync(CD_IN_MEMORY_FILE)) {
-            this.#cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.fromJSON(cd));
+            this.#cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.attachType(cd));
             this.#nextID = Math.max(...(this.#cds.map(cd => cd.id))) + 1
             if (CD_IN_MEMORY_DEBUG) console.log(`Loaded ${this.#cds.length} CDs.  Next id is ${this.#nextID}.`)
         } else {
@@ -136,14 +136,14 @@ export class CDServiceInMemory extends CDServiceAbstract {
     async create(cd) {
         cd.id = this.#nextID++
         if (CD_IN_MEMORY_DEBUG) console.log(`Creating ${JSON.stringify(cd)} (${cd instanceof CD})`)
-        this.#cds[cd.id] = CD.fromJSON(cd)
+        this.#cds[cd.id] = CD.attachType(cd)
         if (CD_IN_MEMORY_DEBUG) console.log(`Created ${JSON.stringify(this.#cds[cd.id])} (${this.#cds[cd.id] instanceof CD})`)
         return cd.id
     }
 
     async update(cd) {
         if (this.#cds[cd.id]) {
-            this.#cds[cd.id] = CD.fromJSON(cd)
+            this.#cds[cd.id] = CD.attachType(cd)
         }
         return this.#cds[cd.id]
     }
