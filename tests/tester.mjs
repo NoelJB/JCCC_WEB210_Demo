@@ -36,4 +36,4 @@ await cdService.update(cd)
 cd = await cdService.getByID(cd.id)
 console.log(`Fetched to verify CD #${cd.id}: ${JSON.stringify(cd)}`)
 
-await cdService.delete(cd)
+await cdService.delete(cd.id)

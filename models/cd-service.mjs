@@ -26,7 +26,7 @@ export class CDServiceAbstract {
         throw new Error(`${this.update.name} is not implemented in ${this.constructor.name}`)
     }
 
-    async delete(cd) {
+    async delete(id) {
         throw new Error(`${this.delete.name} is not implemented in ${this.constructor.name}`)
     }
 }

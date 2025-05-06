@@ -3,7 +3,7 @@
 
   async function deleteCD(id) {
       console.log(`Delete ${id}`)
-      await cdService.delete({ "id": id}) // delete expects a CD.  Fake it.
+      await cdService.delete(id)
       populateCDTable()
   }
 
@@ -19,7 +19,7 @@
       let content = ""
       const cds = await cdService.getAll()
       cds.forEach(cd => content += 
-	  `<tr>
+          `<tr>
                      <td>${cd.artist}</td>
                      <td><a href data-cd_id="${cd.id}">${cd.title}</a></td>
                      <td><button data-cd_id="${cd.id}">Delete</button></td>

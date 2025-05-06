@@ -19,10 +19,10 @@ export class CDServiceInMemory extends CDServiceAbstract {
         // Database?  We don't need no database!
         // if we have a persistent store, load it now.
         if (existsSync(CD_IN_MEMORY_FILE)) {
-	    // we're first going to read into an array, then reassign into #cds, keeping it SPARSE and index aligned.
+            // we're first going to read into an array, then reassign into #cds, keeping it SPARSE and index aligned.
             // filter(e => e) eliminates potentially empty entries
-	    const cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.attachType(cd));
-	    this.#cds = []
+            const cds = JSON.parse(readFileSync(CD_IN_MEMORY_FILE, 'utf8')).filter(e => e).map(cd => CD.attachType(cd));
+            this.#cds = []
             cds.forEach(cd => this.#cds[cd.id] = cd)
             this.#nextID = this.#cds.length
             if (CD_IN_MEMORY_DEBUG) console.log(`Loaded ${this.#cds.length} CDs.  Next id is ${this.#nextID}.`)
@@ -46,7 +46,7 @@ export class CDServiceInMemory extends CDServiceAbstract {
     }
 
     async getByID(id) {
-    	id = parseInt(id)
+        id = parseInt(id)
         return this.#cds.filter(e => e.id === id)[0]
     }
 
@@ -60,12 +60,12 @@ export class CDServiceInMemory extends CDServiceAbstract {
     }
 
     async update(cd) {
-	CD.attachType(cd)	
+        CD.attachType(cd)
         this.#cds[cd.id] = cd
         return cd
     }
 
-    async delete(id) { // expects an ID, not a CD
+    async delete(id) {
         if (this.#cds[id]) this.#cds.splice(id, 1);
     }
 }

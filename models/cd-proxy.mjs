@@ -56,8 +56,8 @@ export class CDServiceProxy extends CDServiceAbstract {
         if (CD_PROXY_DEBUG) console.log(res)
     }
 
-    async delete(cd) {
-        const res = await fetch(`${this.#uri}/${cd.id}`, {
+    async delete(id) {
+        const res = await fetch(`${this.#uri}/${id}`, {
             method: "DELETE" // Specify request method
         })
 
