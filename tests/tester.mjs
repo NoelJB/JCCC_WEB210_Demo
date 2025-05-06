@@ -18,6 +18,32 @@ if (cds.length !== 0) {
     }
 }
 
+const preload = [
+  { 
+    "title": "Journey to the Centre of the Earth",
+    "artist": "Rick Wakeman",
+    "tracks": 4,
+    "price": 6.98
+  },
+  {
+    "title": "Tapestry (1999 Reissue)",
+    "artist": "Carole King",
+    "tracks": 14,
+    "price": 7.98
+  },
+  {
+    "title": "Wilson Phillips",
+    "artist": "Wilson Phillips",
+    "tracks": 10,
+    "price": 15.00
+  }
+]
+
+preload.forEach(async (e) => {
+   const cd = new CD(undefined, e.title, e.artist, e.tracks, e.price)
+   const id = await cdService.create(cd)
+})
+
 let cd = new CD(undefined, "Blockbuster Hits", "Red Box", 12, 19.99);
 const id = await cdService.create(cd)
 cd = await cdService.getByID(id)
