@@ -1,6 +1,12 @@
 <script>
   const base_url = "<%= base_uri %>"
 
+  async function deleteCD(id) {
+      console.log(`Delete ${id}`)
+      await cdService.delete({ "id": id}) // delete expects a CD.  Fake it.
+      populateCDTable()
+  }
+
   async function populateCDDetails(id) {
       const cd = await cdService.getByID(id)
       document.getElementById("cd-artist").value = cd.artist
@@ -12,13 +18,26 @@
   async function populateCDTable() {
       let content = ""
       const cds = await cdService.getAll()
-      cds.forEach(cd => content += `<tr><td>${cd.artist}</td><td><a href data-cd_id="${cd.id}">${cd.title}</a></td></tr>`)
+      cds.forEach(cd => content += 
+	  `<tr>
+                     <td>${cd.artist}</td>
+                     <td><a href data-cd_id="${cd.id}">${cd.title}</a></td>
+                     <td><button data-cd_id="${cd.id}">Delete</button></td>
+                  </tr>`
+      )
+
       const cd_element = document.getElementById("cd-items")
       cd_element.innerHTML = content
       const links = Array.from(cd_element.getElementsByTagName("a"))
       links.forEach(link => link.addEventListener("click", function(event) {
           event.preventDefault()  // IMPORTANT: cancels default browser behaviors
           populateCDDetails(event.target.dataset.cd_id)
+      }))
+
+      const buttons = Array.from(cd_element.getElementsByTagName("button"))
+      buttons.forEach(button => button.addEventListener("click", function(event) {
+          event.preventDefault()  // IMPORTANT: cancels default browser behaviors
+          deleteCD(event.target.dataset.cd_id)
       }))
 }
 </script>
@@ -37,6 +56,7 @@
       <tr>
         <th>Artist</th>
         <th>Title</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody id="cd-items">
