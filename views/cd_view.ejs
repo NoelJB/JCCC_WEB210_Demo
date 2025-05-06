@@ -1,23 +1,63 @@
-<script type="module">
-    import { CDServiceProxy } from "/public/js/cd_proxy.mjs"
-    console.log("imported successful")
-    const cdService = new CDServiceProxy("<%= base_uri %>")
-    const cds = cdService.getAll()
-    console.log(cds)
+<script>
+  const base_url = "<%= base_uri %>"
+
+  async function populateCDDetails(id) {
+      const cd = await cdService.getByID(id)
+      document.getElementById("cd-artist").value = cd.artist
+      document.getElementById("cd-title").value = cd.title
+      document.getElementById("cd-tracks").value = cd.tracks
+      document.getElementById("cd-price").value = cd.price
+  }
+
+  async function populateCDTable() {
+      let content = ""
+      const cds = await cdService.getAll()
+      cds.forEach(cd => content += `<tr><td>${cd.artist}</td><td><a href data-cd_id="${cd.id}">${cd.title}</a></td></tr>`)
+      const cd_element = document.getElementById("cd-items")
+      cd_element.innerHTML = content
+      const links = Array.from(cd_element.getElementsByTagName("a"))
+      links.forEach(link => link.addEventListener("click", function(event) {
+          event.preventDefault()  // IMPORTANT: cancels default browser behaviors
+          populateCDDetails(event.target.dataset.cd_id)
+      }))
+}
 </script>
 
+<script type="module">
+  import { CDServiceProxy } from "/models/cd-proxy.mjs"
+  console.log("imported successful")
+  window.cdService = new CDServiceProxy(base_url)
+  populateCDTable()
+</script>
 
 <section id="cd-list">
-<H1>Available CDs</H1>
-<table>
+  <H1>Available CDs</H1>
+  <table>
     <thead>
-        <tr>
-            <th>Artist</th>
-            <th>Title</th>
-        </tr>
+      <tr>
+        <th>Artist</th>
+        <th>Title</th>
+      </tr>
     </thead>
-    <tbody>
-
+    <tbody id="cd-items">
     </tbody>
-</table>
-</secton>
+  </table>
+</section>
+
+<section id="cd-details">
+  <H1>CD Details</H1>
+  <form>
+    <label for="cd-artist">Artist</label>
+    <input type="text" id="cd-artist" name="cd-artist" disabled>
+
+    <label for="cd-title">Title</label>
+    <input type="text" id="cd-title" name="cd-title" disabled>
+
+    <label for="cd-tracks">Tracks</label>
+    <input type="text" id="cd-tracks" name="cd-tracks" disabled>
+
+    <label for="cd-price">Price</label>
+    <input type="text" id="cd-price" name="cd-price" disabled>
+
+  </form>
+</section>
