@@ -28,17 +28,19 @@
 
       const cd_element = document.getElementById("cd-items")
       cd_element.innerHTML = content
+
+      const registerClickHandler = function(elements, handler) {
+          elements.forEach(element => element.addEventListener("click", function(event) {
+              event.preventDefault()  // IMPORTANT: cancels default browser behaviors
+              handler(event.target.dataset.cd_id)
+          }))
+      }
+
       const links = Array.from(cd_element.getElementsByTagName("a"))
-      links.forEach(link => link.addEventListener("click", function(event) {
-          event.preventDefault()  // IMPORTANT: cancels default browser behaviors
-          populateCDDetails(event.target.dataset.cd_id)
-      }))
+      registerClickHandler(links, populateCDDetails)
 
       const buttons = Array.from(cd_element.getElementsByTagName("button"))
-      buttons.forEach(button => button.addEventListener("click", function(event) {
-          event.preventDefault()  // IMPORTANT: cancels default browser behaviors
-          deleteCD(event.target.dataset.cd_id)
-      }))
+      registerClickHandler(buttons, deleteCD)
 }
 </script>
 
@@ -78,6 +80,5 @@
 
     <label for="cd-price">Price</label>
     <input type="text" id="cd-price" name="cd-price" disabled>
-
   </form>
 </section>
