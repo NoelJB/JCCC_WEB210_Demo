@@ -23,6 +23,12 @@ header {
 
     nav {
         clear: left;
+	#menu {
+	    display: flex;
+	    list-style: none;
+	    li {
+		padding-right: 2em;
+	    }
+	}
     }
-}
 }
