@@ -1,9 +1,14 @@
 "use strict";
 
-import { CDServiceProxy as CDService } from "../models/cd-service.mjs";
+import * as dotenv from "dotenv"
+dotenv.config()
+
+const CD_BASE_URI = process.env.CD_BASE_URI || "http://localhost:3000/api/cds"
+
+import { CDServiceProxy as CDService } from "../models/cd-proxy.mjs";
 import { CD } from "../models/cd.mjs"
 
-const cdService = new CDService()
+const cdService = new CDService(CD_BASE_URI)
 
 const cds = await cdService.getAll()
 if (cds.length !== 0) {

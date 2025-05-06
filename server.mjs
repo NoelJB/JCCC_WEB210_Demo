@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv"
 dotenv.config()
 
+const CD_BASE_URI = process.env.CD_BASE_URI || "http://localhost:3000/api/cds"
+
 import express from "express";
 import path from "path";
 import layouts from "express-ejs-layouts"
@@ -18,14 +20,14 @@ app.use(layouts)
 app.use(express.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/models', express.static(path.join(__dirname, 'models')));
 
 const router = express.Router()
 
 router.use("/api/cds", cd_routes)
 router.get("/cds", (req,res) => {
   res.render("cd_view", {
-    base_uri: process.env.CD_BASE_URI
+    base_uri: CD_BASE_URI
   })
 })
 router.get("/", (req, res) => {

@@ -1,35 +1,9 @@
+"use strict";
+
+import { CDServiceAbstract } from "./cd-service.mjs"
 import { CD } from "./cd.mjs"
 
-const CD_PROXY_DEBUG=true
-
-class CDServiceAbstract {
-    constructor() {
-        if (new.target == CDServiceAbstract) {
-            throw new Error("Cannot Instantiate CDServiceAbstract")
-        }
-    }
-
-    async getAll() {
-        throw new Error(`${this.getAll.name} is not implemented in ${this.constructor.name}`)
-    }
-
-    async getByID(id) {
-        throw new Error(`${this.getByID.name} is not implemented in ${this.constructor.name}`)
-    }
-
-    async create(cd) {
-        throw new Error(`${this.create.name} is not implemented in ${this.constructor.name}`)
-    }
-
-    async update(cd) {
-        throw new Error(`${this.update.name} is not implemented in ${this.constructor.name}`)
-    }
-
-    async delete(cd) {
-        throw new Error(`${this.delete.name} is not implemented in ${this.constructor.name}`)
-    }
-}
-
+const CD_PROXY_DEBUG=false
 
 export class CDServiceProxy extends CDServiceAbstract {
     // ES2022 private fields
@@ -37,19 +11,19 @@ export class CDServiceProxy extends CDServiceAbstract {
 
     constructor(uri) {
         super()
-        this.#uri = uri || process.env.CD_BASE_URI
+        this.#uri = uri
     }
 
     async getAll() {
         const res = await fetch(this.#uri)
-        const cds = (await res.json()).map(cd => CD.fromJSON(cd))
+        const cds = (await res.json()).map(cd => CD.attachType(cd))
         if (CD_PROXY_DEBUG) console.log(cds)
         return cds
     }
 
     async getByID(id) {
         const res = await fetch(`${this.#uri}/${id}`)
-        const cd = (res.status == 200) ? CD.fromJSON(await res.json()) : undefined;
+        const cd = (res.status == 200) ? CD.attachType(await res.json()) : undefined;
         return cd
     }
 
