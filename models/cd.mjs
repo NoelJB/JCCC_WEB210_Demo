@@ -28,7 +28,9 @@ export class CD {
 
     // Attach the object to our class definition.
     static attachType(obj) {
-        return Object.setPrototypeOf(obj, CD.prototype)
+        obj = Object.setPrototypeOf(obj, CD.prototype)
+        obj.id = obj.id
+        return obj
     }
 
     get id() {
