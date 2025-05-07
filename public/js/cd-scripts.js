@@ -88,3 +88,13 @@ async function populateCDTable() {
     buttons = Array.from(cd_element.querySelectorAll("button[edit]"))
     registerClickHandler(buttons, editCD)
 }
+
+var currentPage = undefined
+function changePage(id) {
+    if (currentPage) {
+	document.getElementById(currentPage).style.display = "none"
+    }
+    document.getElementById(id).style.display = "block"
+    currentPage = id
+}
+

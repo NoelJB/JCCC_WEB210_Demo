@@ -19,8 +19,14 @@
       populateCDTable()
     </script>
 
-    <%- include("fragments/cd-list.ejs") %>
-    <%- include("fragments/cd-details.ejs") %>
+    <section id="cd_page" style="display: none">
+      <%- include("fragments/cd-list.ejs") %>
+      <%- include("fragments/cd-details.ejs") %>
+    </section>
+
+    <script>
+      changePage("cd_page")
+    </script>
 
     <%- include("fragments/footer.ejs") %>
   </body>
