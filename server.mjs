@@ -23,38 +23,38 @@ const router = express.Router()
 
 router.use("/api/cds", cd_routes)
 router.get("/cds", (req,res) => {
-  res.render("cd_view", {
-    base_uri: CD_BASE_URI
-  })
+    res.render("cd_view", {
+	base_uri: CD_BASE_URI
+    })
 })
 router.get("/", (req, res) => {
-  res.render("index")
+    res.render("index")
 })
 
 app.use("/", router)
 
 app.use((req, res, next) => {
-  res.status(404).send('Sorry, the file you requested was not found.');
+    res.status(404).send('Sorry, the file you requested was not found.');
 });
 
 const server = app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
+    console.log(`Server listening on port ${port}`)
 })
 
 // A shutdown hook.  Please note that process.exit causes any "exit" hooks to run.
 const shutdown = () => {
-  console.info('Shutdown signal received.');
-  console.log('Closing http server.');
-  server.close(() => {
-    console.log('Express HTTP server closed.');
-    process.exit(0);
-  });
+    console.info('Shutdown signal received.');
+    console.log('Closing http server.');
+    server.close(() => {
+	console.log('Express HTTP server closed.');
+	process.exit(0);
+    });
 
-  // Close any lingering (KEEP-ALIVE?) connections after the timeout
-  setTimeout(() => {
-    console.log('Forcefully closing connections...');
-    server.closeAllConnections();
-  }, 5000); // Timeout after 5 seconds
+    // Close any lingering (KEEP-ALIVE?) connections after the timeout
+    setTimeout(() => {
+	console.log('Forcefully closing connections...');
+	server.closeAllConnections();
+    }, 5000); // Timeout after 5 seconds
 }
 
 // Register our shutdown hook for SIGTERM and SIGINT
