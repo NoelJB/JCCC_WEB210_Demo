@@ -19,19 +19,13 @@ app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/models', express.static(path.join(__dirname, 'models')));
 
-const router = express.Router()
+app.use("/api/cds", cd_routes)
 
-router.use("/api/cds", cd_routes)
-router.get("/cds", (req,res) => {
-    res.render("cd_view", {
+app.use("/", (req,res) => {
+    res.render("cd_app", {
 	base_uri: CD_BASE_URI
     })
 })
-router.get("/", (req, res) => {
-    res.render("index")
-})
-
-app.use("/", router)
 
 app.use((req, res, next) => {
     res.status(404).send('Sorry, the file you requested was not found.');
