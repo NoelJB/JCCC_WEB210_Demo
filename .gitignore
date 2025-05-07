@@ -1,3 +1,9 @@
+# Local repository
+cd_repository.json
+
+# EMACS backup files
+*~
+
 # Logs
 logs
 *.log
