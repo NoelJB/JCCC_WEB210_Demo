@@ -5,8 +5,6 @@ const CD_BASE_URI = process.env.CD_BASE_URI || "http://localhost:3000/api/cds"
 
 import express from "express";
 import path from "path";
-import layouts from "express-ejs-layouts"
-
 
 import { router as cd_routes } from "./controllers/cd_api.mjs"
 
@@ -15,7 +13,6 @@ const port = 3000;
 const __dirname = import.meta.dirname;
 
 app.set("view engine", "ejs")
-app.use(layouts)
 
 app.use(express.json());
 
