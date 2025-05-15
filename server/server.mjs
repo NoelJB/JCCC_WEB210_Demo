@@ -16,9 +16,14 @@ app.set("view engine", "ejs")
 
 app.use(express.json());
 
+// Routing for our React UI
+app.use('/react', express.static(path.join(__dirname, '../react-ui/build')));
+
+// Routing for our plain HTML/CSS/JS UI
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/models', express.static(path.join(__dirname, 'models')));
 
+// Routing for our CD REST API
 app.use("/api/cds", cd_routes)
 
 app.use("/", (req,res) => {
