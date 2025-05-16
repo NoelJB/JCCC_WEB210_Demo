@@ -1,0 +1,9 @@
+function Footer() {
+   return (
+      <footer id="footer">
+         <p>Copyright &copy; 2025 Noel J. Bergman, All Rights Reserved.</p>
+      </footer>
+   )
+}
+
+export default Footer
