@@ -33,6 +33,8 @@ async function editCD(id) {
     disableControl(Array.from(document.querySelectorAll("button[delete]")), true)
     disableControl(Array.from(document.querySelectorAll("button[edit]")), true)
 
+    disableCDLinks = true;
+
     const updateButton = document.createElement("button")
     updateButton.setAttribute("id", "update-button")
     updateButton.innerHTML = "Update"
@@ -42,6 +44,8 @@ async function editCD(id) {
         disableControl(Array.from(form.querySelectorAll("input[type='text']")), true)
         disableControl(Array.from(document.querySelectorAll("button[delete]")), false)
         disableControl(Array.from(document.querySelectorAll("button[edit]")), false)
+
+	disableCDLinks = false;
 
 	updateCD()
     })
@@ -55,7 +59,11 @@ async function deleteCD(id) {
     populateCDTable()
 }
 
+var disableCDLinks = false // this is a quick hack to disable CD selection during edit/add
+
 async function populateCDDetails(id) {
+    if (disableCDLinks) return           // if CD links are disabled, do not process
+
     const cd = await cdService.getByID(id)
     document.getElementById("cd-id").value = cd.id
     document.getElementById("cd-artist").value = cd.artist
