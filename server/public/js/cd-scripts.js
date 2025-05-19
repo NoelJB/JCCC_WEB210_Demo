@@ -104,5 +104,6 @@ function changePage(id) {
     }
     document.getElementById(id).style.display = "block"
     currentPage = id
+    document.getElementById(id).setup()
 }
 

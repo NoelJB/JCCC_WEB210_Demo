@@ -2,7 +2,7 @@
 <html>
   <%- include("fragments/head.ejs") %>
 
-  <body>
+  <body onload='changePage("cd_page")'>
     <%- include("fragments/header.ejs") %>
 
     <script src="/public/js/cd-scripts.js"></script>
@@ -16,7 +16,6 @@
       // make these two available to global scripts
       window.cdService = new CDServiceProxy(base_url)
       window.CD = CD
-      populateCDTable()
     </script>
 
     <section id="cd_page" style="display: none">
@@ -25,7 +24,9 @@
     </section>
 
     <script>
-      changePage("cd_page")
+      let page = document.getElementById("cd_page")
+      page.setup = populateCDTable
+      page = document.getElementById("add_page")
     </script>
 
     <%- include("fragments/footer.ejs") %>
