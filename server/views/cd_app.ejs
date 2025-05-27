@@ -2,7 +2,7 @@
 <html>
   <%- include("fragments/head.ejs") %>
 
-  <body onload='changePage("cd_page")'>
+  <body onload='changePage("about_page")'>
     <%- include("fragments/header.ejs") %>
 
     <script src="/public/js/mini-spa.js"></script>
@@ -19,6 +19,9 @@
       window.CD = CD
     </script>
 
+    <section id="about_page" class="page" data-title="Home" style="display: none">
+      <%- include("fragments/about.ejs") %>
+    </section>
     <section id="cd_page" class="page" data-title = "View CDs" data-setup="populateCDTable" style="display: none">
       <%- include("fragments/cd-list.ejs") %>
       <%- include("fragments/cd-details.ejs") %>
