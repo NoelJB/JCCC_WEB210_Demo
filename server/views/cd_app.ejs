@@ -18,27 +18,32 @@
       window.CD = CD
     </script>
 
-    <section id="cd_page" style="display: none">
+    <section id="cd_page" class="page" data-title = "View CDs" data-setup="populateCDTable" style="display: none">
       <%- include("fragments/cd-list.ejs") %>
       <%- include("fragments/cd-details.ejs") %>
     </section>
 
-    <section id="add_page" style="display: none">
+    <section id="add_page" class="page" data-title="Add CD" data-setup="prepareAdd" style="display: none">
       <%- include("fragments/cd-add.ejs") %>
     </section>
 
     <script>
-      const nav_links = Array.from(document.querySelectorAll("nav a"))
-      nav_links.forEach(link => link.addEventListener("click", function(event) {
-            event.preventDefault();
-            changePage(event.target.dataset.page)
-      }))
+      const nav = document.querySelector("#nav #menu")
+      const pages = Array.from(document.querySelectorAll(".page"))
+      pages.forEach (page => {
+	  const link = document.createElement("li")
+	  const anchor = document.createElement("a")
+	  anchor.setAttribute("href", null)
+	  anchor.dataset.page = page.id
+	  anchor.addEventListener("click", function(event) {
+              event.preventDefault();
+              changePage(event.target.dataset.page)
+	  })
+	  anchor.innerHTML=page.dataset.title
 
-      let page = document.getElementById("cd_page")
-      page.setup = populateCDTable
-
-      page = document.getElementById("add_page")
-      page.setup = prepareAdd
+	  link.appendChild(anchor)
+	  nav.appendChild(link)
+      })
     </script>
 
     <%- include("fragments/footer.ejs") %>

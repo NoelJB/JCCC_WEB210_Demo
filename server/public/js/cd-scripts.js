@@ -126,6 +126,6 @@ function changePage(id) {
     }
     document.getElementById(id).style.display = "block"
     currentPage = id
-    document.getElementById(id).setup?.()   // ECMAScript 2021 -- call setup only if it exists
+    eval(document.getElementById(id).dataset.setup)?.()   // ECMAScript 2021 -- call setup only if it exists
 }
 
