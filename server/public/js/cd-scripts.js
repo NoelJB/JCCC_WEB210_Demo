@@ -5,7 +5,7 @@ function disableControl(elements, disabled) {
 function registerClickHandler(elements, handler) {
     elements.forEach(element => element.addEventListener("click", function(event) {
         event.preventDefault()  // IMPORTANT: cancels default browser behaviors
-        handler(event.target.dataset.cd_id)
+        handler(event.target.dataset.item_id)
     }))
 }
 
@@ -98,9 +98,9 @@ async function populateCDTable() {
     cds.forEach(cd => content += 
 		`<tr>
                      <td>${cd.artist}</td>
-                     <td><a href data-cd_id="${cd.id}">${cd.title}</a></td>
-                     <td><button delete data-cd_id="${cd.id}">&#128465;</button></td>
-                     <td><button edit data-cd_id="${cd.id}">&#x270e;</button></td>
+                     <td><a href data-item_id="${cd.id}">${cd.title}</a></td>
+                     <td><button delete data-item_id="${cd.id}">&#128465;</button></td>
+                     <td><button edit data-item_id="${cd.id}">&#x270e;</button></td>
                   </tr>`
 	       )
 
