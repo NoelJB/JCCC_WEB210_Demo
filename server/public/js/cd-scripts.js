@@ -9,6 +9,25 @@ function registerClickHandler(elements, handler) {
     }))
 }
 
+async function createCD() {
+    const form = document.getElementById("cd-add-form")
+    let cd = new CD(undefined,
+                    form.querySelector("#cd-title").value,
+                    form.querySelector("#cd-artist").value,
+                    form.querySelector("#cd-tracks").value,
+                    form.querySelector("#cd-price").value)
+
+    console.log(`Create ${cd}`)
+    const id = await cdService.create(cd)
+    form.querySelector("#status").innerHTML = `<p>Added CD #${id}</p>`
+}
+
+async function prepareAdd() {
+    const page = document.getElementById("add_page")
+    const button = page.querySelector("#create-button")
+    registerClickHandler([button], createCD)
+}
+
 async function updateCD() {
     const form = document.getElementById("cd-detail-form")
     let cd = new CD(form.querySelector("#cd-id").value,
