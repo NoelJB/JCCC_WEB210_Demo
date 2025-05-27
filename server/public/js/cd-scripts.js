@@ -10,11 +10,12 @@ function registerClickHandler(elements, handler) {
 }
 
 async function updateCD() {
-    let cd = new CD(document.getElementById("cd-id").value,
-                    document.getElementById("cd-title").value,
-                    document.getElementById("cd-artist").value,
-                    document.getElementById("cd-tracks").value,
-                    document.getElementById("cd-price").value)
+    const form = document.getElementById("cd-detail-form")
+    let cd = new CD(form.querySelector("#cd-id").value,
+                    form.querySelector("#cd-title").value,
+                    form.querySelector("#cd-artist").value,
+                    form.querySelector("#cd-tracks").value,
+                    form.querySelector("#cd-price").value)
 
     console.log(`Update ${cd}`)
     await cdService.update(cd)
@@ -24,14 +25,12 @@ async function updateCD() {
 async function editCD(id) {
     await populateCDDetails(id);
 
-    // For a potential future change where we don't brute force disable all deletes and edits while editing
-    // if (!document.getElementById("update-button")) {}
-
     const form = document.getElementById("cd-detail-form")
+    const cd_list = document.getElementById("cd-list")
 
     disableControl(Array.from(form.querySelectorAll("input[type='text']")), false)
-    disableControl(Array.from(document.querySelectorAll("button[delete]")), true)
-    disableControl(Array.from(document.querySelectorAll("button[edit]")), true)
+    disableControl(Array.from(cd_list.querySelectorAll("button[delete]")), true)
+    disableControl(Array.from(cd_list.querySelectorAll("button[edit]")), true)
 
     disableCDLinks = true;
 
@@ -42,8 +41,8 @@ async function editCD(id) {
         form.removeChild(updateButton)
 
         disableControl(Array.from(form.querySelectorAll("input[type='text']")), true)
-        disableControl(Array.from(document.querySelectorAll("button[delete]")), false)
-        disableControl(Array.from(document.querySelectorAll("button[edit]")), false)
+        disableControl(Array.from(cd_list.querySelectorAll("button[delete]")), false)
+        disableControl(Array.from(cd_list.querySelectorAll("button[edit]")), false)
 
 	disableCDLinks = false;
 
@@ -65,11 +64,13 @@ async function populateCDDetails(id) {
     if (disableCDLinks) return           // if CD links are disabled, do not process
 
     const cd = await cdService.getByID(id)
-    document.getElementById("cd-id").value = cd.id
-    document.getElementById("cd-artist").value = cd.artist
-    document.getElementById("cd-title").value = cd.title
-    document.getElementById("cd-tracks").value = cd.tracks
-    document.getElementById("cd-price").value = cd.price
+
+    const form = document.getElementById("cd-detail-form")
+    form.querySelector("#cd-id").value = cd.id
+    form.querySelector("#cd-artist").value = cd.artist
+    form.querySelector("#cd-title").value = cd.title
+    form.querySelector("#cd-tracks").value = cd.tracks
+    form.querySelector("#cd-price").value = cd.price
 }
 
 async function populateCDTable() {
@@ -99,11 +100,13 @@ async function populateCDTable() {
 
 var currentPage = undefined
 function changePage(id) {
+    if (currentPage === id) return;
+ 
     if (currentPage) {
 	document.getElementById(currentPage).style.display = "none"
     }
     document.getElementById(id).style.display = "block"
     currentPage = id
-    document.getElementById(id).setup()
+    document.getElementById(id).setup?.()   // ECMAScript 2021 -- call setup only if it exists
 }
 
