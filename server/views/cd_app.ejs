@@ -5,6 +5,7 @@
   <body onload='changePage("cd_page")'>
     <%- include("fragments/header.ejs") %>
 
+    <script src="/public/js/mini-spa.js"></script>
     <script src="/public/js/cd-scripts.js"></script>
 
     <script type="module">
@@ -23,7 +24,7 @@
       <%- include("fragments/cd-details.ejs") %>
     </section>
 
-    <section id="add_page" class="page" data-title="Add CD" data-setup="prepareAdd" style="display: none">
+    <section id="add_page" class="page" data-title="Add CD" data-setup="prepareAddCD" style="display: none">
       <%- include("fragments/cd-add.ejs") %>
     </section>
 

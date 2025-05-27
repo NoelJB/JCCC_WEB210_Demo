@@ -1,14 +1,3 @@
-function disableControl(elements, disabled) {
-    elements.forEach(element => element.disabled = disabled)
-}
-
-function registerClickHandler(elements, handler) {
-    elements.forEach(element => element.addEventListener("click", function(event) {
-        event.preventDefault()  // IMPORTANT: cancels default browser behaviors
-        handler(event.target.dataset.item_id)
-    }))
-}
-
 async function createCD() {
     const form = document.getElementById("cd-add-form")
     let cd = new CD(undefined,
@@ -22,7 +11,7 @@ async function createCD() {
     form.querySelector("#status").innerHTML = `<p>Added CD #${id}</p>`
 }
 
-async function prepareAdd() {
+async function prepareAddCD() {
     const page = document.getElementById("add_page")
     const button = page.querySelector("#create-button")
     registerClickHandler([button], createCD)
@@ -115,17 +104,5 @@ async function populateCDTable() {
 
     buttons = Array.from(cd_element.querySelectorAll("button[edit]"))
     registerClickHandler(buttons, editCD)
-}
-
-var currentPage = undefined
-function changePage(id) {
-    if (currentPage === id) return;
- 
-    if (currentPage) {
-	document.getElementById(currentPage).style.display = "none"
-    }
-    document.getElementById(id).style.display = "block"
-    currentPage = id
-    eval(document.getElementById(id).dataset.setup)?.()   // ECMAScript 2021 -- call setup only if it exists
 }
 
