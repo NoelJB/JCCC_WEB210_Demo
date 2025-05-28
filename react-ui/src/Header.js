@@ -14,8 +14,7 @@ function Header() {
 				<nav id="nav">
 					<ul id="menu">
 						<li><Link className="App-link" to="/">Home</Link></li>
-						<li><Link className="App-link" to="/cds">View CDs</Link></li>
-						<li><Link className="App-link" to="/add">Add CDs</Link></li>
+						<li><Link className="App-link" to="/cds">CDs</Link></li>
 					</ul>
 				</nav>
 			</div>
