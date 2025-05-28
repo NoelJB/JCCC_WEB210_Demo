@@ -5,6 +5,7 @@ const CD_BASE_URI = process.env.CD_BASE_URI || "http://localhost:3000/api/cds"
 
 import express from "express";
 import path from "path";
+import cors from "cors";
 
 import { router as cd_routes } from "./controllers/cd_api.mjs"
 
@@ -14,6 +15,7 @@ const __dirname = import.meta.dirname;
 
 app.set("view engine", "ejs")
 
+app.use(cors())
 app.use(express.json());
 
 // Routing for our React UI
