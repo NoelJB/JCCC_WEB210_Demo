@@ -23,12 +23,23 @@ Adding a new data type will include:
 
 The `server` directory is a standalone Node application with an embedded UI based on [EJS](https://ejs.co/).  The `react-ui` directory is a pure React application (no Vite or NextJS).  Each are independent Node projects with their own dependencies.
 
-The server can be started by
+The server application can be started by
 ```
 JCCC_WEB210_Demo$ cd server
 JCCC_WEB210_Demo/server$ npm start
 ```
 
-If the server is running on port 3000, accessing `http://localhost:3000/` should bring up the EJS version of the UI.
+If the server application is running on port 3000, accessing `http://localhost:3000/` should bring up the EJS version of the UI.
 
-The React UI is served directly from `react-ui/build`.  After running `npm run build` in `react-ui`, accessing `http://localhost:3000/react` should bring up the React version of the UI (presuming that the server application is running on port 3000).
+To facilitate easier development with React and Angular, the server application is instrumented to use CORS.  To develop using React, for example, start the server application first, then start the React development server:
+```
+JCCC_WEB210_Demo$ cd server
+JCCC_WEB210_Demo/server$ npm start
+JCCC_WEB210_Demo/server$ cd ..
+JCCC_WEB210_Demo$ cd react-ui
+JCCC_WEB210_Demo/react-ui$ npm start
+```
+The server application should be listening on port 3000, and the React development server should have detected the conflict, and offered to run on port 3001.  Accordingly, accessing `localhost:3001/react` should bring up the React UI.
+
+### Simulate production
+To simulate a production environment, the server application is configured to serve the React UI directly from `react-ui/build`.  After running `npm run build` in `react-ui`, accessing `http://localhost:3000/react` should bring up the React version of the UI (presuming that the server application is running on port 3000).
