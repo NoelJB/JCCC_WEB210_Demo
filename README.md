@@ -25,7 +25,7 @@ The `server` directory is a standalone Node application with an embedded UI base
 
 The server can be started by
 ```
-JCCC_WEB210_Demo/$ cd server
+JCCC_WEB210_Demo$ cd server
 JCCC_WEB210_Demo/server$ npm start
 ```
 
