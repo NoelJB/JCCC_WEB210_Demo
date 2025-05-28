@@ -21,7 +21,7 @@ Adding a new data type will include:
 
 ## Running the server
 
-The `server` directory is a standalone Node application with an embedded UI based on [EJS](https://ejs.co/)`.  The `react-ui` directory is a pure React application (no Vite or NextJS).  Each are independent Node projects with their own dependencies.
+The `server` directory is a standalone Node application with an embedded UI based on [EJS](https://ejs.co/).  The `react-ui` directory is a pure React application (no Vite or NextJS).  Each are independent Node projects with their own dependencies.
 
 The server can be started by
 ```
