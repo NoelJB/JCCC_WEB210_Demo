@@ -23,9 +23,11 @@ Adding a new data type will include:
 
 The `server` directory is a standalone Node application with an embedded UI based on [EJS](https://ejs.co/)`.  The `react-ui` directory is a pure React application (no Vite or NextJS).  Each are independent Node projects with their own dependencies.
 
-The server can be started by ```
-$ cd server
-$ npm start```
+The server can be started by
+```
+JCCC_WEB210_Demo/$ cd server
+JCCC_WEB210_Demo/server$ npm start
+```
 
 If the server is running on port 3000, accessing `http://localhost:3000/` should bring up the EJS version of the UI.
 
