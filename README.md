@@ -31,4 +31,4 @@ JCCC_WEB210_Demo/server$ npm start
 
 If the server is running on port 3000, accessing `http://localhost:3000/` should bring up the EJS version of the UI.
 
-The React UI is served directly from `react-ui/build`.  After running `npm run build` in `react-ui`, accessing `http://localhost:3000/react-ui` should bring up the React version of the UI (presuming that the server application is running on port 3000).
+The React UI is served directly from `react-ui/build`.  After running `npm run build` in `react-ui`, accessing `http://localhost:3000/react` should bring up the React version of the UI (presuming that the server application is running on port 3000).
