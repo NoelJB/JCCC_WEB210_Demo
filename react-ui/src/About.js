@@ -1,0 +1,29 @@
+function About() {
+    return (
+        <>
+            <h1>About Simon's Seaside</h1>
+            <p>
+                This is a demonstration Capstone application for the JCCC <a href="https://continuinged.jccc.edu/courses/detail/44810">WEB-210</a> Full-Stack Web Development Capstone course, although it can be used in similar contexts.
+            </p>
+            <p>The intent of the app is to provide a demonstration and starter for a full-stack CRUD application.  Students will be expected to:</p>
+            <ol>
+                <li>Fork the current project to their own GitHub</li>
+                <li>Review the code with the Instructor</li>
+                <li>Add a new item type, <i>e.g.</i>, DVD, books, magazines, <i>etc</i>. as an instructor-led set of activities.</li>
+                <li>Add another item type as a student performed exercise.</li>
+            </ol>
+            <p>Adding a new data type will include:</p>
+            <ol>
+                <li>Defining a new model for the entity.</li>
+                <li>Defining a new service for the entity, including backend and frontend components.</li>
+                <li>Defining a API controller for the new entity.</li>
+                <li>Defining new pages and fragments for the new entity, or the equivalent components for React and/or Angular.</li>
+            </ol>
+            <p>
+                At present, there is a plain HTML5/CSS/JS UI, a (currently) partial React UI, and plans for an Angular UI in the near future.  Additional code changes will happen to make it easier to enhance the "storefront" with additional types of items.
+            </p>
+        </>
+    )
+}
+
+export default About

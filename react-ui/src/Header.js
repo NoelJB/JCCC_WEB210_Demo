@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import logo from './Compact_Disc.svg';
 
 function Header() {
@@ -11,8 +13,8 @@ function Header() {
 	<div>
 	  <nav id="nav">
 	    <ul id="menu">
-	      <li><a class="App-link" href="/cds">View CDs</a></li>
-	      <li><a class="App-link" href="/add">Add CDs</a></li>
+	      <li><Link className="App-link" to="/cds">View CDs</Link></li>
+	      <li><Link className="App-link" to="/add">Add CDs</Link></li>
 	    </ul>
 	  </nav>
 	</div>
