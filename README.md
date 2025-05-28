@@ -31,6 +31,7 @@ JCCC_WEB210_Demo/server$ npm start
 
 If the server application is running on port 3000, accessing `http://localhost:3000/` should bring up the EJS version of the UI.
 
+### Developing with React and/or Angular
 To facilitate easier development with React and Angular, the server application is instrumented to use CORS.  To develop using React, for example, start the server application first, then start the React development server:
 ```
 JCCC_WEB210_Demo$ cd server
