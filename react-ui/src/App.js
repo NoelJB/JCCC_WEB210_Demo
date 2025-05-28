@@ -16,7 +16,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<About />} />
-          <Route path="/cds" element={<CDView />} />
+          <Route path="/cds/*" element={<CDView />} />
         </Routes>
         <Footer />
       </div>
