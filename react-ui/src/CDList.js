@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Link, Outlet } from "react-router-dom"
 
-import { CDServiceProxy as CDService } from ".//models/cd-proxy.mjs"
+import { CDServiceProxy as CDService } from "./models/cd-proxy.mjs"
 
 function CDList({ compactDiscs, setChanged }) {
     const deleteCD = async (id) => {
