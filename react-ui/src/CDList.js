@@ -14,8 +14,8 @@ function CDList({ compactDiscs, setChanged }) {
         setChanged(true)
     }
 
-    return (
-        <>
+    const availableCDs = () => {
+        return (
             <section id="cd-list">
                 <h1>Available CDs</h1>
                 <table>
@@ -46,7 +46,19 @@ function CDList({ compactDiscs, setChanged }) {
                     </tbody>
                 </table>
             </section>
-            <Outlet />
+        )
+    }
+
+    return (
+        <>
+        <div style={{ display: 'flex' }}> {/* Column layout using flexbox */}
+            <div style={{ marginRight: 25 }}>
+                { availableCDs() }
+            </div>
+            <div style={{ flex: 1 }}>
+                <Outlet /> {/* Child routes will render here */}
+            </div>
+        </div>
         </>
     )
 }
