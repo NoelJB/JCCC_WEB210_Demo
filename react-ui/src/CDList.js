@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { Link, Outlet } from "react-router-dom"
 
 function CDList({compactDiscs}) {
     return (
@@ -17,11 +18,12 @@ function CDList({compactDiscs}) {
 					<tbody id="cd-items">
 						{
 							compactDiscs.map(cd => {
+								const path = `/cds/${cd.id}`
 								return (
 									<Fragment key={cd.title}>
 										<tr>
 											<td>{cd.artist}</td>
-											<td>{cd.title}</td>
+											<td><Link to={path}>{cd.title}</Link></td>
 											<td><button delete data-cd_id="{cd.id}">&#128465;</button></td>
 											<td><button edit data-cd_id="{cd.id}">&#x270e;</button></td>
 										</tr>
@@ -32,6 +34,7 @@ function CDList({compactDiscs}) {
 					</tbody>
 				</table>
 			</section>
+            <Outlet />
         </>
     )
 }

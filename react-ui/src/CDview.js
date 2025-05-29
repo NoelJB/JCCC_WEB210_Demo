@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
+import { Routes, Route } from 'react-router-dom'
+
 
 import { CDServiceProxy as CDService } from ".//models/cd-proxy.mjs"
 
 import CDList from "./CDList.js"
+import CDDetails from "./CDDetails.js"
 
 function CDView() {
 	const [compactdiscsData, setCompactdiscsData] = useState([])
@@ -21,7 +24,11 @@ function CDView() {
 
 	return (
 		<>
-			<CDList compactDiscs={compactdiscsData}/>
+			<Routes>
+				<Route path="/" element={<CDList compactDiscs={compactdiscsData} />}>
+					<Route path=":cd_id" element={<CDDetails />} />
+				</Route>
+			</Routes>
 		</>
 	)
 }
