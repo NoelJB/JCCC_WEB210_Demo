@@ -51,14 +51,14 @@ function CDList({ compactDiscs, setChanged }) {
 
     return (
         <>
-        <div style={{ display: 'flex' }}> {/* Column layout using flexbox */}
-            <div style={{ marginRight: 25 }}>
-                { availableCDs() }
+            <div style={{ display: 'flex' }}> {/* Column layout using flexbox */}
+                <div style={{ marginRight: 25 }}>
+                    {availableCDs()}
+                </div>
+                <div style={{ flex: 1 }}>
+                    <Outlet /> {/* Child routes will render here */}
+                </div>
             </div>
-            <div style={{ flex: 1 }}>
-                <Outlet /> {/* Child routes will render here */}
-            </div>
-        </div>
         </>
     )
 }
