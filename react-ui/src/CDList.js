@@ -1,7 +1,17 @@
 import { Fragment } from "react"
 import { Link, Outlet } from "react-router-dom"
 
-function CDList({ compactDiscs }) {
+import { CDServiceProxy as CDService } from ".//models/cd-proxy.mjs"
+
+function CDList({ compactDiscs, setChanged }) {
+    const deleteCD = async (id) => {
+        const uri = `http://localhost:3000/api/cds`;
+        const cdService = new CDService(uri)
+        await cdService.delete(id);
+
+        setChanged(true)
+    }
+
     return (
         <>
             <section id="cd-list">
@@ -24,8 +34,8 @@ function CDList({ compactDiscs }) {
                                         <tr>
                                             <td>{cd.artist}</td>
                                             <td><Link to={path}>{cd.title}</Link></td>
-                                            <td><button delete data-cd_id="{cd.id}">&#128465;</button></td>
-                                            <td><button edit data-cd_id="{cd.id}">&#x270e;</button></td>
+                                            <td><button onClick={() => deleteCD(cd.id)}>&#128465;</button></td>
+                                            <td><button>&#x270e;</button></td>
                                         </tr>
                                     </Fragment>
                                 )

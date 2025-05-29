@@ -9,6 +9,7 @@ import CDDetails from "./CDDetails.js"
 
 function CDView() {
 	const [compactdiscsData, setCompactdiscsData] = useState([])
+	const [changed, setChanged] = useState(true)
 
 	const fetchCDs = async () => {
 		const uri = `http://localhost:3000/api/cds`;
@@ -16,16 +17,17 @@ function CDView() {
 		const cds = await cdService.getAll();
 
 		setCompactdiscsData(cds)
+		setChanged(false)
 	}
 
 	useEffect(() => {
-		fetchCDs()
-	}, [])
+		if (changed) fetchCDs()
+	}, [changed])
 
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<CDList compactDiscs={compactdiscsData} />}>
+				<Route path="/" element={<CDList compactDiscs={compactdiscsData} setChanged={setChanged} />}>
 					<Route path=":cd_id" element={<CDDetails />} />
 				</Route>
 			</Routes>
