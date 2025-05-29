@@ -28,16 +28,16 @@ function CDDetails() {
                 <input type="hidden" id="cd-id" value={cd.id} disabled />
 
                 <label htmlFor="cd-artist">Artist</label>
-                <input type="text" id="cd-artist" value={cd.artist} disabled />
+                <input type="text" id="cd-artist" value={cd.artist} disabled /><br/>
 
                 <label htmlFor="cd-title">Title</label>
-                <input type="text" id="cd-title" value={cd.title} disabled />
+                <input type="text" id="cd-title" value={cd.title} disabled /><br/>
 
                 <label htmlFor="cd-tracks">Tracks</label>
-                <input type="text" id="cd-tracks" value={cd.tracks} disabled />
+                <input type="text" id="cd-tracks" value={cd.tracks} disabled /><br/>
 
                 <label htmlFor="cd-price">Price</label>
-                <input type="text" id="cd-price" value={cd.price} disabled />
+                <input type="text" id="cd-price" value={cd.price} disabled /><br/>
             </form>
         </>
     )

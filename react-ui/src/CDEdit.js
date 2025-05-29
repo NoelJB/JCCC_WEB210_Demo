@@ -25,19 +25,19 @@ function CDEdit() {
         <>
             <h1>Update: </h1>
             <form id="cd-detail-form">
-                <input type="hidden" id="cd-id" value={cd.id} />
+                <input type="hidden" id="cd-id" value={cd.id} /><br/>
 
                 <label htmlFor="cd-artist">Artist</label>
-                <input type="text" id="cd-artist" value={cd.artist} />
+                <input type="text" id="cd-artist" value={cd.artist} /><br/>
 
                 <label htmlFor="cd-title">Title</label>
-                <input type="text" id="cd-title" value={cd.title} />
+                <input type="text" id="cd-title" value={cd.title} /><br/>
 
                 <label htmlFor="cd-tracks">Tracks</label>
-                <input type="text" id="cd-tracks" value={cd.tracks}  />
+                <input type="text" id="cd-tracks" value={cd.tracks}  /><br/>
 
                 <label htmlFor="cd-price">Price</label>
-                <input type="text" id="cd-price" value={cd.price} />
+                <input type="text" id="cd-price" value={cd.price} /><br/>
 
                 <button>Update</button>
             </form>
