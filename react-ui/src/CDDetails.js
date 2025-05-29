@@ -9,7 +9,6 @@ function CDDetails() {
     const [ cd, setCD ] = useState(null)
 
     useEffect(() => {
-        console.log(`Loading CD ${cd_id}`)
         const fetchCD = async (id) => {
             const uri = `http://localhost:3000/api/cds`;
             const cdService = new CDService(uri)
