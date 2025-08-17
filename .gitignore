@@ -1,5 +1,6 @@
 # Local repository
 cd_repository.json
+cd_repository.db
 
 # EMACS backup files
 *~
