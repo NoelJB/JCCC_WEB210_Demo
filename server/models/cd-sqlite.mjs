@@ -71,8 +71,8 @@ export class CDServiceSQLite extends CDServiceAbstract {
 
     async update(cd) {
         CD.attachType(cd)
-        this.#update_statement.run(cd.title, cd.artist, cd.tracks, cd.price, cd.id)
-        return cd
+        const { changes, lastInsertRowid } = this.#update_statement.run(cd.title, cd.artist, cd.tracks, cd.price, cd.id)
+        return changes === 1  // return True if the updated changed a row, else False (should mean NOT FOUND)
     }
 
     async delete(id) {
@@ -131,11 +131,14 @@ if (fileURLToPath(import.meta.url) === process.argv[1]) {
     
     cd.title = cd.title.replace("revised", "redux")
     console.log(`Updating CD #${cd.id}: ${JSON.stringify(cd)}`)
-    await cdService.update(cd)
+    assert(true === await cdService.update(cd))
     
     cd = await cdService.getByID(cd.id)
     console.log(`Fetched to verify CD #${cd.id}: ${JSON.stringify(cd)}`)
     
     await cdService.delete(id)
-    await cdService.delete(cd.id)    
+    await cdService.delete(cd.id)
+
+    assert(undefined === await cdService.getByID(id))
+    assert(false === await cdService.update(cd))
 }
