@@ -39,7 +39,7 @@ export class CDServiceSQLite extends CDServiceAbstract {
         // the file on shutdown.  if we wanted to switch to async I/O, we'd have to use
         // beforeExit, not exit.
         process.on('exit', () => {
-            if (CD_IN_SQLITE_DEBUG) console.info('Process exit received. Closing connection to ${CD_IN_SQLITE_FILE}.');
+            if (CD_IN_SQLITE_DEBUG) console.info(`Process exit received. Closing connection to ${CD_IN_SQLITE_FILE}.`);
             this.#db.close()
         });
 
