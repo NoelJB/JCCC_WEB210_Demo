@@ -52,13 +52,13 @@ export class CDServiceSQLite extends CDServiceAbstract {
     }
 
     async getAll() {
-        // #cds is sparse.  Return a contigous array.
-        return this.#getAll_statement.all()
+        return this.#getAll_statement.all().map(cd => CD.attachType(cd))
     }
 
     async getByID(id) {
         id = parseInt(id)
-        return this.#getByID_statement.get(id)
+        const cd = this.#getByID_statement.get(id)
+        return cd ? CD.attachType(cd) : cd
     }
 
     async create(cd) {
