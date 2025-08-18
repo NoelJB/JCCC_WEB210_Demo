@@ -2,7 +2,7 @@
 
 import express from "express";
 
-import { CDServiceInMemory as CDService } from "../models/cd-storage.mjs";
+import { CDServiceSQLite as CDService } from "../models/cd-storage.mjs";
 import { CD } from "../models/cd.mjs";
 
 export const router = express.Router();
