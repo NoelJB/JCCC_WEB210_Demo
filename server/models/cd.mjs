@@ -80,6 +80,13 @@ export class CD {
     }
 }
 
+// Make CD properties enumerable
+Object.defineProperty(CD.prototype, "id", {enumerable: true })
+Object.defineProperty(CD.prototype, "title", {enumerable: true })
+Object.defineProperty(CD.prototype, "artist", {enumerable: true })
+Object.defineProperty(CD.prototype, "tracks", {enumerable: true })
+Object.defineProperty(CD.prototype, "price", {enumerable: true })
+
 /*
 const cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
 console.log(`cd is an instance of CD: ${cd instanceof CD}`)
