@@ -28,8 +28,9 @@ export class CD {
 
     // Attach the object to our class definition.
     static attachType(obj) {
+        obj.id = obj.id  // JSON does not transmit undefined, so in case the ID field was lost, reestablish it before attaching prototype.
         obj = Object.setPrototypeOf(obj, CD.prototype)
-        obj.id = obj.id
+        obj.id = obj.id  // Force the ID through the setter
         return obj
     }
 
@@ -78,6 +79,13 @@ export class CD {
         this.#price = parseFloat(newPrice);
     }
 }
+
+// Make CD properties enumerable
+Object.defineProperty(CD.prototype, "id", {enumerable: true })
+Object.defineProperty(CD.prototype, "title", {enumerable: true })
+Object.defineProperty(CD.prototype, "artist", {enumerable: true })
+Object.defineProperty(CD.prototype, "tracks", {enumerable: true })
+Object.defineProperty(CD.prototype, "price", {enumerable: true })
 
 /*
 const cd = new CD(1, "Blockbuster Hits", "Red Box", 12, 19.99);
