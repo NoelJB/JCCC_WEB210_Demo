@@ -25,7 +25,7 @@ function CDDetails() {
         <>
             <h1>CD Details</h1>
             <form id="cd-detail-form">
-                <input type="hidden" id="cd-id" value={cd.id} disabled />
+                <input type="hidden" id="cd-id" value={cd.id} disabled /> <br/>
 
                 <label htmlFor="cd-artist">Artist</label>
                 <input type="text" id="cd-artist" value={cd.artist} disabled /><br/>
