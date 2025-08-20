@@ -23,7 +23,7 @@ export class CDServiceProxy extends CDServiceAbstract {
 
     async getByID(id) {
         const res = await fetch(`${this.#uri}/${id}`)
-        const cd = (res.status == 200) ? CD.attachType(await res.json()) : undefined;
+        const cd = (res.status === 200) ? CD.attachType(await res.json()) : undefined;
         return cd
     }
 

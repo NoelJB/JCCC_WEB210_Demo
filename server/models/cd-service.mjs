@@ -5,7 +5,7 @@ import { CD } from "./cd.mjs"
 
 export class CDServiceAbstract {
     constructor() {
-        if (new.target == CDServiceAbstract) {
+        if (new.target === CDServiceAbstract) {
             throw new Error("Cannot Instantiate CDServiceAbstract")
         }
     }
