@@ -30,7 +30,7 @@ function CDView() {
 			<Routes>
 				<Route path="/" element={<CDList compactDiscs={compactdiscsData} setChanged={setChanged} />}>
 					<Route path=":cd_id" element={<CDDetails />} />
-					<Route path="/edit/:cd_id" element={<CDEdit />} />
+					<Route path="/edit/:cd_id" element={<CDEdit setChanged={setChanged} />} />
 				</Route>
 			</Routes>
 		</>
