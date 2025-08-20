@@ -28,8 +28,10 @@ export class CD {
 
     // Attach the object to our class definition.
     static attachType(obj) {
+        // eslint-disable-next-line
         obj.id = obj.id  // JSON does not transmit undefined, so in case the ID field was lost, reestablish it before attaching prototype.
         obj = Object.setPrototypeOf(obj, CD.prototype)
+        // eslint-disable-next-line
         obj.id = obj.id  // Force the ID through the setter
         return obj
     }
