@@ -32,7 +32,7 @@ function CDList({ compactDiscs, setChanged }) {
                             compactDiscs.map(cd => {
                                 const path = `/cds/${cd.id}`
                                 return (
-                                    <Fragment key={cd.title}>
+                                    <Fragment key={cd.id}>
                                         <tr>
                                             <td>{cd.artist}</td>
                                             <td><Link to={path}>{cd.title}</Link></td>
