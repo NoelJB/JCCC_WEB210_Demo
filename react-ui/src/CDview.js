@@ -7,6 +7,7 @@ import { CDServiceProxy as CDService } from ".//models/cd-proxy.mjs"
 import CDList from "./CDList.js"
 import CDDetails from "./CDDetails.js"
 import CDEdit from "./CDEdit.js"
+import CDAdd from "./CDAdd.js"
 
 function CDView() {
 	const [compactdiscsData, setCompactdiscsData] = useState([])
@@ -31,6 +32,7 @@ function CDView() {
 				<Route path="/" element={<CDList compactDiscs={compactdiscsData} setChanged={setChanged} />}>
 					<Route path=":cd_id" element={<CDDetails />} />
 					<Route path="/edit/:cd_id" element={<CDEdit setChanged={setChanged} />} />
+					<Route path="/add" element={<CDAdd setChanged={setChanged} />} />
 				</Route>
 			</Routes>
 		</>

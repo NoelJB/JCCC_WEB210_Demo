@@ -17,7 +17,7 @@ function CDList({ compactDiscs, setChanged }) {
     const availableCDs = () => {
         return (
             <section id="cd-list">
-                <h1>Available CDs</h1>
+                <h1>Available CDs (<span style = {{cursor: 'pointer'}} onClick={() => navigateTo('/cds/add')}>&#x2795;</span>)</h1>
                 <table>
                     <thead>
                         <tr>
