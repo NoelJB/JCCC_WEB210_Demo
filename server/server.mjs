@@ -15,7 +15,7 @@ const __dirname = import.meta.dirname;
 
 app.set("view engine", "ejs")
 
-app.use(cors())
+app.use(cors({"exposedHeaders": ["Location"]}))
 app.use(express.json());
 
 // Routing for our React UI
