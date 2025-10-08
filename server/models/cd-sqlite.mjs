@@ -80,6 +80,7 @@ export class CDServiceSQLite extends CDServiceAbstract {
     }
 }
 
+// From here down is self-test code
 import { fileURLToPath } from "node:url";
 if (fileURLToPath(import.meta.url) === process.argv[1]) {
     const cdService = new CDServiceSQLite()
