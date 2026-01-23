@@ -29,7 +29,7 @@ app.use('/models', express.static(path.join(__dirname, 'models')));
 app.use("/api/cds", cd_routes)
 
 // Routing for our app page
-app.use("/", (req,res) => {
+app.get("/", (req,res) => {
     res.render("app", {
 	base_uri: CD_BASE_URI
     })
