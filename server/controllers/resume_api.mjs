@@ -1,11 +1,13 @@
 import express from "express";
 
-import { AllResumes, OneResume } from "../models/resume.mjs";
+import { ResumeServiceInMemory as ResumeService } from "../models/resume-service-in-memory.mjs";
+
+const resumeRepository = new ResumeService()
 
 export const router = express.Router();
 
 // Routing for our resume API
 // http://localhost:3000/api/resumes
-router.get("/", (req, res) => { res.json(AllResumes()); });
+router.get("/", async (req, res) => { res.json(await resumeRepository.getAll()); });
 // http://localhost:3000/api/resumes/bob
-router.get("/:id", (req, res) => { res.json(OneResume(req.params['id'])); });
+router.get("/:id", async (req, res) => { res.json(await resumeRepository.getByID(req.params['id'])); });
