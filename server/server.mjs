@@ -8,8 +8,8 @@ import path from "path";
 import cors from "cors";
 
 import { router as cd_routes } from "./controllers/cd_api.mjs"
-import { router as resume_api } from "./resume_api.mjs";
-import { router as geometry_api } from "./geometry_api.mjs";
+import { router as resume_api } from "./controllers/resume_api.mjs";
+import { router as geometry_api } from "./controllers/geometry_api.mjs";
 
 const app = express();
 const port = 3000;

@@ -1,6 +1,6 @@
 import express from "express";
 
-import { AllResumes, OneResume } from "./data.mjs";
+import { AllResumes, OneResume } from "../models/resume.mjs";
 
 export const router = express.Router();
 
