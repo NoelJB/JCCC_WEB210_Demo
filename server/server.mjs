@@ -8,6 +8,8 @@ import path from "path";
 import cors from "cors";
 
 import { router as cd_routes } from "./controllers/cd_api.mjs"
+import { router as resume_api } from "./resume_api.mjs";
+import { router as geometry_api } from "./geometry_api.mjs";
 
 const app = express();
 const port = 3000;
@@ -27,6 +29,12 @@ app.use('/models', express.static(path.join(__dirname, 'models')));
 
 // Routing for our CD REST API
 app.use("/api/cds", cd_routes)
+
+// Routing for our resume API
+app.use("/api/resumes", resume_api);
+
+// Routing for our circle API
+app.use("/api/geometry", geometry_api);
 
 // Routing for our app page
 app.get("/", (req,res) => {
