@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Simon's Seaside CD API
+  version: 1.0.0
+  description: RESTful CRUD API for managing CD inventory in the JCCC WEB-210 Full-Stack Capstone Demo.
+  x-generator-skill: express-to-openapi@1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local Express development server
+paths:
+  /cds:
+    get:
+      tags:
+        - Cds
+      operationId: listCds
+      summary: List all available CDs
+      responses:
+        "200":
+          description: Array of all CD records in inventory.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cd"
+    post:
+      tags:
+        - Cds
+      operationId: createCd
+      summary: Create a new CD record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCdRequest"
+      responses:
+        "201":
+          description: CD created successfully; Location header points to the new resource.
+          headers:
+            Location:
+              description: URL of the newly created CD resource (e.g., http://localhost:3000/api/cds/{id}).
+              schema:
+                type: string
+                format: uri
+  /cds/{cdId}:
+    parameters:
+      - name: cdId
+        in: path
+        required: true
+        description: Numeric identifier of the CD.
+        schema:
+          type: integer
+          minimum: 1
+    get:
+      tags:
+        - Cds
+      operationId: getCd
+      summary: Get a single CD by ID
+      responses:
+        "200":
+          description: Matching CD record.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cd"
+        "404":
+          description: CD with the specified ID was not found.
+    put:
+      tags:
+        - Cds
+      operationId: updateCd
+      summary: Replace an existing CD record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCdRequest"
+      responses:
+        "204":
+          description: CD updated successfully.
+        "404":
+          description: CD with the specified ID was not found.
+    delete:
+      tags:
+        - Cds
+      operationId: deleteCd
+      summary: Delete a CD by ID
+      responses:
+        "204":
+          description: CD deleted (idempotent).
+components:
+  schemas:
+    Cd:
+      type: object
+      required:
+        - id
+        - title
+        - artist
+        - tracks
+        - price
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          example: 1
+        title:
+          type: string
+          minLength: 1
+          example: Blockbuster Hits
+        artist:
+          type: string
+          minLength: 1
+          example: Red Box
+        tracks:
+          type: integer
+          minimum: 1
+          example: 12
+        price:
+          type: number
+          minimum: 0
+          example: 19.99
+    CreateCdRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - title
+        - artist
+        - tracks
+        - price
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: Blockbuster Hits
+        artist:
+          type: string
+          minLength: 1
+          example: Red Box
+        tracks:
+          type: integer
+          minimum: 1
+          example: 12
+        price:
+          type: number
+          minimum: 0
+          example: 19.99
+    UpdateCdRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - title
+        - artist
+        - tracks
+        - price
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          example: 1
+        title:
+          type: string
+          minLength: 1
+          example: Blockbuster Hits - redux
+        artist:
+          type: string
+          minLength: 1
+          example: Red Box
+        tracks:
+          type: integer
+          minimum: 1
+          example: 12
+        price:
+          type: number
+          minimum: 0
+          example: 19.99
